@@ -55,8 +55,12 @@ module Telegram
 
       def run
         while running
-          updates = fetch_updates
-          process_updates(updates) if updates && updates.any?
+          begin
+            updates = fetch_updates
+            process_updates(updates) if updates && updates.any?
+          rescue Exception => e
+            p e.message.to_s
+          end
         end
       end
 
